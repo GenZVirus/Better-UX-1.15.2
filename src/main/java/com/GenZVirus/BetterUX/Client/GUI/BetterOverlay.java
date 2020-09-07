@@ -8,8 +8,10 @@ import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.CombatRules;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -161,13 +163,14 @@ public class BetterOverlay {
 		int posX = mc.getMainWindow().getScaledWidth() / 2 - 91;
 		int posY = mc.getMainWindow().getScaledHeight() - ForgeIngameGui.left_height - 11;
 
-		int totalArmor = mc.player.getTotalArmorValue();
+		float totalArmor = mc.player.getTotalArmorValue();
+		float toughness = (float) mc.player.getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).getValue();
 		RenderSystem.scalef(0.5F, 0.5F, 0.5F);
 		AbstractGui.blit((posX - 33) * 2, posY * 2, 0, 0, 0, 64, 64, 64, 64);
 		mc.getTextureManager().bindTexture(ARMOR_RIGHT);
 		AbstractGui.blit((posX + 183) * 2, posY * 2, 0, 0, 0, 64, 64, 64, 64);
 		RenderSystem.scalef(2.0F, 2.0F, 2.0F);
-		float damageReduction = Math.round(0.4 * totalArmor * 10) / 10;
+		float damageReduction = Math.round((100.0F - CombatRules.getDamageAfterAbsorb(100, totalArmor, toughness)) * 10) / 10.0F;
 		for(ItemStack stack : mc.player.getArmorInventoryList()) {
 			damageReduction += EnchantmentHelper.getEnchantmentLevel(Enchantments.PROTECTION, stack);
 		}
