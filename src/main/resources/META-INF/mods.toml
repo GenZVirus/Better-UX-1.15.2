@@ -20,7 +20,7 @@ issueTrackerURL="https://github.com/GenZVirus/BetterUXForge1.15.2-Public/issues"
 modId="betterux" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="1.0" #mandatory
+version="1.7" #mandatory
 
  # A display name for the mod
 displayName="Better UX" #mandatory
@@ -35,7 +35,7 @@ displayURL="https://discord.gg/ty6gQaD" #optional
 logoFile="examplemod.png" #optional
 
 # A text field displayed in the mod UI
-credits="GenZVirus(Main Dev)" #optional
+credits="GenZVirus(Main Dev), ZettaSword(Artist)" #optional
 
 # A text field displayed in the mod UI
 authors="GenZVirus(Main Dev)" #optional
