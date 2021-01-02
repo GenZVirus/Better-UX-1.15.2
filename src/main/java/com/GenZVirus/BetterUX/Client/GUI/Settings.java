@@ -10,7 +10,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class Settings extends Screen{
 
-	private Button closeButton, resetButton, editButton, changeButton;
+	private Button closeButton, resetButton, editButton, changeButton, enable_or_disable_BetterUX, enable_or_disable_text;
 	private Minecraft mc = Minecraft.getInstance();
 	
 	public static Settings instance = new Settings(new TranslationTextComponent("Settings"));
@@ -28,6 +28,7 @@ public class Settings extends Screen{
 		
 		resetButton = new Button(mc.getMainWindow().getScaledWidth() / 2 - 105, mc.getMainWindow().getScaledHeight() / 2 - 5, 100, 20, "Reset to Default", (x) -> {
 			XMLFileJava.resetToDefault();
+			XMLFileJava.load();
 		});
 		
 		editButton = new Button(mc.getMainWindow().getScaledWidth() / 2 + 5, mc.getMainWindow().getScaledHeight() / 2 - 5, 100, 20, "Edit UI", (x) -> {
@@ -37,10 +38,29 @@ public class Settings extends Screen{
 		changeButton = new Button(mc.getMainWindow().getScaledWidth() / 2 - 105, mc.getMainWindow().getScaledHeight() / 2 + 20, 100, 20, "Change Textures", (x) -> {
 			mc.displayGuiScreen(ChangeTextures.instance);
 		});
+		enable_or_disable_BetterUX = new Button(mc.getMainWindow().getScaledWidth() / 2 - 105, mc.getMainWindow().getScaledHeight() / 2 + 45, 210, 20, XMLFileJava.readElement("Enabled_Disabled").contentEquals("enabled")? "Disable Better UX Overlay" : "Enable Better UX Overlay", (x) -> {
+			XMLFileJava.checkFileAndMake();
+			if(XMLFileJava.readElement("Enabled_Disabled").contentEquals("enabled")) {
+				XMLFileJava.editElement("Enabled_Disabled", "disabled");
+			} else XMLFileJava.editElement("Enabled_Disabled", "enabled");
+			this.enable_or_disable_BetterUX.setMessage(XMLFileJava.readElement("Enabled_Disabled").contentEquals("enabled")? "Disable Better UX Overlay" : "Enable Better UX Overlay");
+			XMLFileJava.load();
+		});
+		
+		enable_or_disable_text = new Button(mc.getMainWindow().getScaledWidth() / 2 - 105, mc.getMainWindow().getScaledHeight() / 2 + 70, 210, 20, XMLFileJava.readElement("TextDisabled").contentEquals("false")? "Disable Text" : "Enable Text", (x) -> {
+			XMLFileJava.checkFileAndMake();
+			if(XMLFileJava.readElement("TextDisabled").contentEquals("false")) {
+				XMLFileJava.editElement("TextDisabled", "true");
+			} else XMLFileJava.editElement("TextDisabled", "false");
+			this.enable_or_disable_text.setMessage(XMLFileJava.readElement("TextDisabled").contentEquals("false")? "Disable Text" : "Enable Text");
+			XMLFileJava.load();
+		});
 		this.addButton(closeButton);
 		this.addButton(resetButton);
 		this.addButton(editButton);
 		this.addButton(changeButton);
+		this.addButton(enable_or_disable_BetterUX);
+		this.addButton(enable_or_disable_text);
 	}
 	
 	@Override
