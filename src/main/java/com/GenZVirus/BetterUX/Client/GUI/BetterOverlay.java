@@ -48,6 +48,7 @@ public class BetterOverlay {
 	public static boolean HasOverlay = false;
 	public static boolean wasHoldingFood = false;
 	public static boolean textDisabled = false;
+	public static boolean soundEffects = true;
 
 	/***********************************
 	 * 
