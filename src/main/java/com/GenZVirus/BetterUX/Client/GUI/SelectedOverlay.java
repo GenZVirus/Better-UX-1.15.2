@@ -8,7 +8,7 @@ import net.minecraft.client.gui.widget.Widget;
 
 public class SelectedOverlay extends Widget {
 
-	private Minecraft mc = Minecraft.getInstance();
+	protected Minecraft mc = Minecraft.getInstance();
 	public boolean isOverlaySelected = false;
 	public int scaledX;
 	public int scaledY;

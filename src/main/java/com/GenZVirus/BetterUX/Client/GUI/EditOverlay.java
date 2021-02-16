@@ -2,11 +2,13 @@ package com.GenZVirus.BetterUX.Client.GUI;
 
 import java.util.List;
 
+import com.GenZVirus.BetterUX.Client.File.XMLFileJava;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.text.ITextComponent;
@@ -14,7 +16,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class EditOverlay extends Screen {
 
-	private SelectedOverlay leftShield, rightShield, healthBar, foodBar, expBar, fireBar, airBar, bossBar;
+	private SelectedOverlay leftShield, rightShield, healthBar, foodBar, expBar, fireBar, airBar, bossBar, effect;
 	private Minecraft mc = Minecraft.getInstance();
 
 	public static EditOverlay instance = new EditOverlay(new TranslationTextComponent("EditOverlay"));
@@ -24,13 +26,13 @@ public class EditOverlay extends Screen {
 	}
 
 	@Override
-	protected void init() {
-		leftShield = new SelectedOverlay(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.LeftShieldPosX, mc.getMainWindow().getScaledHeight() + BetterOverlay.LeftShieldPosY, 32, 32, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
+	public void init() {
+		leftShield = new SelectedOverlay(BetterOverlay.leftShieldPosX, BetterOverlay.leftShieldPosY, 32, 32, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.LeftShieldPosX += number;
 				BetterOverlay.updateLeftShieldPosX();
-				leftShield.x =  BetterOverlay.leftShieldPosX;
+				leftShield.x = BetterOverlay.leftShieldPosX;
 				super.addX(number);
 			}
 
@@ -46,7 +48,7 @@ public class EditOverlay extends Screen {
 			public void substractX(int number) {
 				BetterOverlay.LeftShieldPosX -= number;
 				BetterOverlay.updateLeftShieldPosX();
-				leftShield.x =  BetterOverlay.leftShieldPosX;
+				leftShield.x = BetterOverlay.leftShieldPosX;
 				super.substractX(number);
 			}
 
@@ -62,7 +64,7 @@ public class EditOverlay extends Screen {
 			public void setX(int X) {
 				BetterOverlay.LeftShieldPosX = X;
 				BetterOverlay.updateLeftShieldPosX();
-				leftShield.x =  BetterOverlay.leftShieldPosX;
+				leftShield.x = BetterOverlay.leftShieldPosX;
 				super.setX(X);
 			}
 
@@ -74,11 +76,11 @@ public class EditOverlay extends Screen {
 				super.setY(Y);
 			}
 		};
-		rightShield = new SelectedOverlay(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.RightShieldPosX, mc.getMainWindow().getScaledHeight() + BetterOverlay.RightShieldPosY, 32, 32, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
+		rightShield = new SelectedOverlay(BetterOverlay.rightShieldPosX, BetterOverlay.rightShieldPosY, 32, 32, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.RightShieldPosX += number;
-				BetterOverlay.updateRightSHieldPosX();
+				BetterOverlay.updateRightShieldPosX();
 				rightShield.x = BetterOverlay.rightShieldPosX;
 				super.addX(number);
 			}
@@ -86,7 +88,7 @@ public class EditOverlay extends Screen {
 			@Override
 			public void addY(int number) {
 				BetterOverlay.RightShieldPosY += number;
-				BetterOverlay.updateRightSHieldPosY();
+				BetterOverlay.updateRightShieldPosY();
 				rightShield.y = BetterOverlay.rightShieldPosY;
 				super.addY(number);
 			}
@@ -94,7 +96,7 @@ public class EditOverlay extends Screen {
 			@Override
 			public void substractX(int number) {
 				BetterOverlay.RightShieldPosX -= number;
-				BetterOverlay.updateRightSHieldPosX();
+				BetterOverlay.updateRightShieldPosX();
 				rightShield.x = BetterOverlay.rightShieldPosX;
 				super.substractX(number);
 			}
@@ -102,7 +104,7 @@ public class EditOverlay extends Screen {
 			@Override
 			public void substractY(int number) {
 				BetterOverlay.RightShieldPosY -= number;
-				BetterOverlay.updateRightSHieldPosY();
+				BetterOverlay.updateRightShieldPosY();
 				rightShield.y = BetterOverlay.rightShieldPosY;
 				super.substractY(number);
 			}
@@ -110,7 +112,7 @@ public class EditOverlay extends Screen {
 			@Override
 			public void setX(int X) {
 				BetterOverlay.RightShieldPosX = X;
-				BetterOverlay.updateRightSHieldPosX();
+				BetterOverlay.updateRightShieldPosX();
 				rightShield.x = BetterOverlay.rightShieldPosX;
 				super.setX(X);
 			}
@@ -118,12 +120,12 @@ public class EditOverlay extends Screen {
 			@Override
 			public void setY(int Y) {
 				BetterOverlay.RightShieldPosY = Y;
-				BetterOverlay.updateRightSHieldPosY();
+				BetterOverlay.updateRightShieldPosY();
 				rightShield.y = BetterOverlay.rightShieldPosY;
 				super.setY(Y);
 			}
 		};
-		healthBar = new SelectedOverlay(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.HealthBarPosX, mc.getMainWindow().getScaledHeight() + BetterOverlay.HealthBarPosY, 90, 10, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
+		healthBar = new SelectedOverlay(BetterOverlay.HealthPosX, BetterOverlay.HealthPosY, 90, 10, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.HealthBarPosX += number;
@@ -172,7 +174,7 @@ public class EditOverlay extends Screen {
 				super.setY(Y);
 			}
 		};
-		foodBar = new SelectedOverlay(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.FoodBarPosX - 90, mc.getMainWindow().getScaledHeight() + BetterOverlay.FoodBarPosY, 90, 10, "", mc.getMainWindow().getScaledWidth() / 2 -90, mc.getMainWindow().getScaledHeight()) {
+		foodBar = new SelectedOverlay(BetterOverlay.foodPosX - 90, BetterOverlay.foodPosY, 90, 10, "", mc.getMainWindow().getScaledWidth() / 2 - 90, mc.getMainWindow().getScaledHeight()) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.FoodBarPosX += number;
@@ -221,7 +223,7 @@ public class EditOverlay extends Screen {
 				super.setY(Y);
 			}
 		};
-		expBar = new SelectedOverlay(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.ExpBarPosX, mc.getMainWindow().getScaledHeight() + BetterOverlay.ExpBarPosY, 182, 16, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
+		expBar = new SelectedOverlay(BetterOverlay.expPosX, BetterOverlay.expPosY, 182, 16, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.ExpBarPosX += number;
@@ -270,7 +272,7 @@ public class EditOverlay extends Screen {
 				super.setY(Y);
 			}
 		};
-		fireBar = new SelectedOverlay(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.FirePosX, mc.getMainWindow().getScaledHeight() + BetterOverlay.FirePosY, 200, 32, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
+		fireBar = new SelectedOverlay(BetterOverlay.firePosX, BetterOverlay.firePosY, 200, 32, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.FirePosX += number;
@@ -319,7 +321,7 @@ public class EditOverlay extends Screen {
 				super.setY(Y);
 			}
 		};
-		airBar = new SelectedOverlay(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.AirBarPosX, mc.getMainWindow().getScaledHeight() + BetterOverlay.AirBarPosY, 182, 16, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
+		airBar = new SelectedOverlay(BetterOverlay.airPosX, BetterOverlay.airPosY, 182, 16, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.AirBarPosX += number;
@@ -368,7 +370,7 @@ public class EditOverlay extends Screen {
 				super.setY(Y);
 			}
 		};
-		bossBar = new SelectedOverlay(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.BossBarPosX, BetterOverlay.BossBarPosY, 320, 32, "", mc.getMainWindow().getScaledWidth() / 2, 0) {
+		bossBar = new SelectedOverlay(BetterOverlay.bossPosX, BetterOverlay.bossPosY, 320, 32, "", mc.getMainWindow().getScaledWidth() / 2, 0) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.BossBarPosX += number;
@@ -417,6 +419,62 @@ public class EditOverlay extends Screen {
 				super.setY(Y);
 			}
 		};
+
+		effect = new SelectedOverlay(BetterOverlay.effectsPosX - 25, BetterOverlay.effectsPosY, 24, 24, "", 0, 0) {
+			@Override
+			public void addX(int number) {
+				BetterOverlay.EffectsPosX += number;
+				BetterOverlay.updateEffectsPosX();
+				effect.x = BetterOverlay.effectsPosX - 25;
+				super.addX(number);
+			}
+
+			@Override
+			public void addY(int number) {
+				BetterOverlay.EffectsPosY += number;
+				BetterOverlay.updateEffectsPosY();
+				effect.y = BetterOverlay.effectsPosY;
+				super.addY(number);
+			}
+
+			@Override
+			public void substractX(int number) {
+				BetterOverlay.EffectsPosX -= number;
+				BetterOverlay.updateEffectsPosX();
+				effect.x = BetterOverlay.effectsPosX - 25;
+				super.substractX(number);
+			}
+
+			@Override
+			public void substractY(int number) {
+				BetterOverlay.EffectsPosY -= number;
+				BetterOverlay.updateEffectsPosY();
+				effect.y = BetterOverlay.effectsPosY;
+				super.substractY(number);
+			}
+
+			@Override
+			public void setX(int X) {
+				if (BetterOverlay.effectsPosX > mc.getMainWindow().getScaledWidth() / 2) {
+					BetterOverlay.EffectsPosX = X - mc.getMainWindow().getScaledWidth() + 25;
+					BetterOverlay.updateEffectsPosX();
+					effect.x = BetterOverlay.effectsPosX - 25;
+				} else {
+					BetterOverlay.EffectsPosX = X - mc.getMainWindow().getScaledWidth() - 25;
+					BetterOverlay.updateEffectsPosX();
+					effect.x = BetterOverlay.effectsPosX + 25;
+				}
+				super.setX(X);
+			}
+
+			@Override
+			public void setY(int Y) {
+				BetterOverlay.EffectsPosY = Y;
+				BetterOverlay.updateEffectsPosY();
+				effect.y = BetterOverlay.effectsPosY;
+				super.setY(Y);
+			}
+		};
 		this.addButton(leftShield);
 		this.addButton(rightShield);
 		this.addButton(healthBar);
@@ -425,44 +483,66 @@ public class EditOverlay extends Screen {
 		this.addButton(fireBar);
 		this.addButton(airBar);
 		this.addButton(bossBar);
+		this.addButton(effect);
 	}
 
 	@Override
 	public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
 		if (!mc.player.isBurning()) {
 			mc.getTextureManager().bindTexture(BetterUXResources.getResourceOf(BetterUXResources.FIRE));
-			AbstractGui.blit(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.FirePosX, mc.getMainWindow().getScaledHeight() + BetterOverlay.FirePosY, 0, 0, 0, 200, 32, 5792, 200);
+			AbstractGui.blit(BetterOverlay.firePosX, BetterOverlay.firePosY, 0, 0, 0, 200, 32, 5792, 200);
 		}
 		if (!mc.player.areEyesInFluid(FluidTags.WATER) || !(mc.player.getAir() < mc.player.getMaxAir())) {
 			mc.getTextureManager().bindTexture(BetterUXResources.getResourceOf(BetterUXResources.WATER_BREATHING_BAR));
-			AbstractGui.blit(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.AirBarPosX, mc.getMainWindow().getScaledHeight() + BetterOverlay.AirBarPosY, 0, 0, 0, 182, 16, 16, 182);
+			AbstractGui.blit(BetterOverlay.airPosX, BetterOverlay.airPosY, 0, 0, 0, 182, 16, 16, 182);
 			mc.getTextureManager().bindTexture(BetterUXResources.getResourceOf(BetterUXResources.WATER_BREATHING_BAR_FILL));
-			AbstractGui.blit(mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.AirBarPosX + 1, mc.getMainWindow().getScaledHeight() + BetterOverlay.AirBarPosY + 1, 0, 0, 0, 180, 14, 14, 180);
+			AbstractGui.blit(BetterOverlay.airPosX + 1, BetterOverlay.airPosY + 1, 0, 0, 0, 180, 14, 14, 180);
 		}
 		if (mc.player.getTotalArmorValue() <= 0) {
 			RenderSystem.scalef(0.5F, 0.5F, 0.5F);
 			mc.getTextureManager().bindTexture(BetterUXResources.getResourceOf(BetterUXResources.ARMOR_LEFT));
-			AbstractGui.blit((mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.LeftShieldPosX) * 2, (mc.getMainWindow().getScaledHeight() + BetterOverlay.LeftShieldPosY) * 2, 0, 0, 0, 64, 64, 64, 64);
+			AbstractGui.blit(BetterOverlay.leftShieldPosX * 2, BetterOverlay.leftShieldPosY * 2, 0, 0, 0, 64, 64, 64, 64);
 			mc.getTextureManager().bindTexture(BetterUXResources.getResourceOf(BetterUXResources.ARMOR_RIGHT));
-			AbstractGui.blit((mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.RightShieldPosX) * 2, (mc.getMainWindow().getScaledHeight() + BetterOverlay.RightShieldPosY) * 2, 0, 0, 0, 64, 64, 64, 64);
+			AbstractGui.blit(BetterOverlay.rightShieldPosX * 2, BetterOverlay.rightShieldPosY * 2, 0, 0, 0, 64, 64, 64, 64);
 			RenderSystem.scalef(2.0F, 2.0F, 2.0F);
 		}
 		if (mc.ingameGUI.getBossOverlay().mapBossInfos.isEmpty()) {
-			int posX = mc.getMainWindow().getScaledWidth() / 2 + BetterOverlay.BossBarPosX;
-			int posY = BetterOverlay.BossBarPosY;
+			int posX = BetterOverlay.bossPosX;
+			int posY = BetterOverlay.bossPosY;
 			RenderSystem.scalef(1.0F, 0.8F, 1.0F);
 			RenderSystem.enableBlend();
 			mc.getTextureManager().bindTexture(BetterUXResources.getResourceOf(BetterUXResources.BOSS_BAR_BACKGROUND));
 			AbstractGui.blit(posX, (int) (posY * 1.25F), 0, 0, 0, 320, 40, 40, 320);
 			mc.getTextureManager().bindTexture(BetterUXResources.getResourceOf(BetterUXResources.BOSS_BAR_HEALTH));
-			AbstractGui.blit(posX, (int) (posY * 1.25F), 0, 0, 0, 320, 40, 40, 320);
+			AbstractGui.blit(posX + 35, (int) (posY * 1.25F), 0, 0, 0, 250, 40, 40, 250);
 			mc.getTextureManager().bindTexture(BetterUXResources.getResourceOf(BetterUXResources.BOSS_BAR_OVERLAY));
 			AbstractGui.blit(posX, (int) (posY * 1.25F), 0, 0, 0, 320, 40, 40, 320);
 			RenderSystem.disableBlend();
 			RenderSystem.scalef(1.0F, 1.25F, 1.0F);
 		}
+
+		if (mc.player.getActivePotionEffects().isEmpty()) {
+			mc.getTextureManager().bindTexture(ContainerScreen.INVENTORY_BACKGROUND);
+			if (BetterOverlay.effectsPosX > mc.getMainWindow().getScaledWidth() / 2) {
+				AbstractGui.blit(BetterOverlay.effectsPosX - 25, BetterOverlay.effectsPosY, -90, 141, 166, 24, 24, 256, 256);
+				AbstractGui.blit(BetterOverlay.effectsPosX - 25 - 25, BetterOverlay.effectsPosY, -90, 141, 166, 24, 24, 256, 256);
+				AbstractGui.blit(BetterOverlay.effectsPosX - 25 - 50, BetterOverlay.effectsPosY, -90, 141, 166, 24, 24, 256, 256);
+				AbstractGui.blit(BetterOverlay.effectsPosX - 25, BetterOverlay.effectsPosY + 26, -90, 141, 166, 24, 24, 256, 256);
+			} else {
+				AbstractGui.blit(BetterOverlay.effectsPosX + 25, BetterOverlay.effectsPosY, -90, 141, 166, 24, 24, 256, 256);
+				AbstractGui.blit(BetterOverlay.effectsPosX + 25 + 25, BetterOverlay.effectsPosY, -90, 141, 166, 24, 24, 256, 256);
+				AbstractGui.blit(BetterOverlay.effectsPosX + 25 + 50, BetterOverlay.effectsPosY, -90, 141, 166, 24, 24, 256, 256);
+				AbstractGui.blit(BetterOverlay.effectsPosX + 25, BetterOverlay.effectsPosY + 26, -90, 141, 166, 24, 24, 256, 256);
+			}
+		}
 		super.render(p_render_1_, p_render_2_, p_render_3_);
 
+	}
+
+	@Override
+	public void onClose() {
+		XMLFileJava.save();
+		super.onClose();
 	}
 
 	public List<Widget> getButtons() {
