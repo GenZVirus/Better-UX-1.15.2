@@ -27,12 +27,12 @@ public class EditOverlay extends Screen {
 
 	@Override
 	public void init() {
-		leftShield = new SelectedOverlay(BetterOverlay.leftShieldPosX, BetterOverlay.leftShieldPosY, 32, 32, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
+		leftShield = new SelectedOverlay(BetterOverlay.leftShieldPosX - 30, BetterOverlay.leftShieldPosY - 2, 44, 16, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.LeftShieldPosX += number;
 				BetterOverlay.updateLeftShieldPosX();
-				leftShield.x = BetterOverlay.leftShieldPosX;
+				leftShield.x = BetterOverlay.leftShieldPosX - 30;
 				super.addX(number);
 			}
 
@@ -40,7 +40,7 @@ public class EditOverlay extends Screen {
 			public void addY(int number) {
 				BetterOverlay.LeftShieldPosY += number;
 				BetterOverlay.updateLeftShieldPosY();
-				leftShield.y = BetterOverlay.leftShieldPosY;
+				leftShield.y = BetterOverlay.leftShieldPosY - 2;
 				super.addY(number);
 			}
 
@@ -48,7 +48,7 @@ public class EditOverlay extends Screen {
 			public void substractX(int number) {
 				BetterOverlay.LeftShieldPosX -= number;
 				BetterOverlay.updateLeftShieldPosX();
-				leftShield.x = BetterOverlay.leftShieldPosX;
+				leftShield.x = BetterOverlay.leftShieldPosX - 30;
 				super.substractX(number);
 			}
 
@@ -56,7 +56,7 @@ public class EditOverlay extends Screen {
 			public void substractY(int number) {
 				BetterOverlay.LeftShieldPosY -= number;
 				BetterOverlay.updateLeftShieldPosY();
-				leftShield.y = BetterOverlay.leftShieldPosY;
+				leftShield.y = BetterOverlay.leftShieldPosY - 2;
 				super.substractY(number);
 			}
 
@@ -64,7 +64,7 @@ public class EditOverlay extends Screen {
 			public void setX(int X) {
 				BetterOverlay.LeftShieldPosX = X;
 				BetterOverlay.updateLeftShieldPosX();
-				leftShield.x = BetterOverlay.leftShieldPosX;
+				leftShield.x = BetterOverlay.leftShieldPosX - 30;
 				super.setX(X);
 			}
 
@@ -72,16 +72,16 @@ public class EditOverlay extends Screen {
 			public void setY(int Y) {
 				BetterOverlay.LeftShieldPosY = Y;
 				BetterOverlay.updateLeftShieldPosY();
-				leftShield.y = BetterOverlay.leftShieldPosY;
+				leftShield.y = BetterOverlay.leftShieldPosY - 2;
 				super.setY(Y);
 			}
 		};
-		rightShield = new SelectedOverlay(BetterOverlay.rightShieldPosX, BetterOverlay.rightShieldPosY, 32, 32, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
+		rightShield = new SelectedOverlay(BetterOverlay.rightShieldPosX - 2, BetterOverlay.rightShieldPosY - 2, 44, 16, "", mc.getMainWindow().getScaledWidth() / 2, mc.getMainWindow().getScaledHeight()) {
 			@Override
 			public void addX(int number) {
 				BetterOverlay.RightShieldPosX += number;
 				BetterOverlay.updateRightShieldPosX();
-				rightShield.x = BetterOverlay.rightShieldPosX;
+				rightShield.x = BetterOverlay.rightShieldPosX - 2;
 				super.addX(number);
 			}
 
@@ -89,7 +89,7 @@ public class EditOverlay extends Screen {
 			public void addY(int number) {
 				BetterOverlay.RightShieldPosY += number;
 				BetterOverlay.updateRightShieldPosY();
-				rightShield.y = BetterOverlay.rightShieldPosY;
+				rightShield.y = BetterOverlay.rightShieldPosY - 2;
 				super.addY(number);
 			}
 
@@ -97,7 +97,7 @@ public class EditOverlay extends Screen {
 			public void substractX(int number) {
 				BetterOverlay.RightShieldPosX -= number;
 				BetterOverlay.updateRightShieldPosX();
-				rightShield.x = BetterOverlay.rightShieldPosX;
+				rightShield.x = BetterOverlay.rightShieldPosX - 2;
 				super.substractX(number);
 			}
 
@@ -105,7 +105,7 @@ public class EditOverlay extends Screen {
 			public void substractY(int number) {
 				BetterOverlay.RightShieldPosY -= number;
 				BetterOverlay.updateRightShieldPosY();
-				rightShield.y = BetterOverlay.rightShieldPosY;
+				rightShield.y = BetterOverlay.rightShieldPosY - 2;
 				super.substractY(number);
 			}
 
@@ -113,7 +113,7 @@ public class EditOverlay extends Screen {
 			public void setX(int X) {
 				BetterOverlay.RightShieldPosX = X;
 				BetterOverlay.updateRightShieldPosX();
-				rightShield.x = BetterOverlay.rightShieldPosX;
+				rightShield.x = BetterOverlay.rightShieldPosX - 2;
 				super.setX(X);
 			}
 
@@ -121,7 +121,7 @@ public class EditOverlay extends Screen {
 			public void setY(int Y) {
 				BetterOverlay.RightShieldPosY = Y;
 				BetterOverlay.updateRightShieldPosY();
-				rightShield.y = BetterOverlay.rightShieldPosY;
+				rightShield.y = BetterOverlay.rightShieldPosY - 2;
 				super.setY(Y);
 			}
 		};
